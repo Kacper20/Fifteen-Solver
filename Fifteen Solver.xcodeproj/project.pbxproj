@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823971BD9709100726EB5 /* AppDelegate.swift */; };
-		E708239A1BD9709100726EB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823991BD9709100726EB5 /* ViewController.swift */; };
 		E708239D1BD9709100726EB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E708239B1BD9709100726EB5 /* Main.storyboard */; };
 		E708239F1BD9709100726EB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E708239E1BD9709100726EB5 /* Assets.xcassets */; };
 		E70823A21BD9709100726EB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70823A01BD9709100726EB5 /* LaunchScreen.storyboard */; };
 		E70823AD1BD9709100726EB5 /* Fifteen_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823AC1BD9709100726EB5 /* Fifteen_SolverTests.swift */; };
 		E70823B81BD9709100726EB5 /* Fifteen_SolverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823B71BD9709100726EB5 /* Fifteen_SolverUITests.swift */; };
+		E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C61BD974E900726EB5 /* BoardGenerator.swift */; settings = {ASSET_TAGS = (); }; };
+		E70823C91BD9764800726EB5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C81BD9764800726EB5 /* Board.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,6 @@
 /* Begin PBXFileReference section */
 		E70823941BD9709100726EB5 /* Fifteen Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fifteen Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70823971BD9709100726EB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E70823991BD9709100726EB5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E708239C1BD9709100726EB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E708239E1BD9709100726EB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E70823A11BD9709100726EB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +47,8 @@
 		E70823B31BD9709100726EB5 /* Fifteen SolverUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fifteen SolverUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70823B71BD9709100726EB5 /* Fifteen_SolverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fifteen_SolverUITests.swift; sourceTree = "<group>"; };
 		E70823B91BD9709100726EB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E70823C61BD974E900726EB5 /* BoardGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardGenerator.swift; sourceTree = "<group>"; };
+		E70823C81BD9764800726EB5 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +99,8 @@
 		E70823961BD9709100726EB5 /* Fifteen Solver */ = {
 			isa = PBXGroup;
 			children = (
+				E70823C51BD974B000726EB5 /* Model */,
 				E70823971BD9709100726EB5 /* AppDelegate.swift */,
-				E70823991BD9709100726EB5 /* ViewController.swift */,
 				E708239B1BD9709100726EB5 /* Main.storyboard */,
 				E708239E1BD9709100726EB5 /* Assets.xcassets */,
 				E70823A01BD9709100726EB5 /* LaunchScreen.storyboard */,
@@ -123,6 +125,15 @@
 				E70823B91BD9709100726EB5 /* Info.plist */,
 			);
 			path = "Fifteen SolverUITests";
+			sourceTree = "<group>";
+		};
+		E70823C51BD974B000726EB5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E70823C61BD974E900726EB5 /* BoardGenerator.swift */,
+				E70823C81BD9764800726EB5 /* Board.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,8 +266,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E708239A1BD9709100726EB5 /* ViewController.swift in Sources */,
+				E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */,
 				E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */,
+				E70823C91BD9764800726EB5 /* Board.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
