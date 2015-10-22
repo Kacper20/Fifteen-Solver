@@ -15,6 +15,8 @@
 		E70823B81BD9709100726EB5 /* Fifteen_SolverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823B71BD9709100726EB5 /* Fifteen_SolverUITests.swift */; };
 		E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C61BD974E900726EB5 /* BoardGenerator.swift */; settings = {ASSET_TAGS = (); }; };
 		E70823C91BD9764800726EB5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C81BD9764800726EB5 /* Board.swift */; settings = {ASSET_TAGS = (); }; };
+		E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */; settings = {ASSET_TAGS = (); }; };
+		E70823CD1BD990FA00726EB5 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823CC1BD990FA00726EB5 /* PriorityQueue.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		E70823B91BD9709100726EB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E70823C61BD974E900726EB5 /* BoardGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardGenerator.swift; sourceTree = "<group>"; };
 		E70823C81BD9764800726EB5 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolutionSearcher.swift; sourceTree = "<group>"; };
+		E70823CC1BD990FA00726EB5 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 			children = (
 				E70823C61BD974E900726EB5 /* BoardGenerator.swift */,
 				E70823C81BD9764800726EB5 /* Board.swift */,
+				E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */,
+				E70823CC1BD990FA00726EB5 /* PriorityQueue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -268,7 +274,9 @@
 			files = (
 				E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */,
 				E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */,
+				E70823CD1BD990FA00726EB5 /* PriorityQueue.swift in Sources */,
 				E70823C91BD9764800726EB5 /* Board.swift in Sources */,
+				E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,10 +26,6 @@ extension BoardElement: Equatable { }
     default: return false
     }
 }
-    
-
-    
-
 /**BlankSpaceMoveType 
 Możliwe ruchy dla każdego pustego miejsca - możemy ruszać się w prawo, w lewo, w przód, w dół
 */
@@ -53,11 +49,11 @@ struct Board: Equatable {
         }
         assert(indx != nil, "Powinniśmy dostać blank puzzle gdzieś w planszy.")
     }
-    init(elementsInSingleDArray: [BoardElement]) {
+    private init(elementsInSingleDArray: [BoardElement]) {
+        boardElements = elementsInSingleDArray
+        
         
     }
-    
-    
     ///makeMove: Przyjmuje ruch, zwraca kolejną tablicę po wykonanym ruchu.
     func makeMove(move: BlankSpaceMove) -> Board? {
         guard possibleMoves.contains(move) else { return nil }
@@ -73,11 +69,8 @@ struct Board: Equatable {
             }
         }()
         swap(&newArr[indxOfBlank], &newArr[indxOfPuzzleToMoveWith])
-        return Board(elements: <#T##[[BoardElement]]#>)
-        
-        
-        
-  
+        return Board(elementsInSingleDArray: newArr)
+
     }
     ///possibleMoves - zwraca ruchy, ktore jestesmy w stanie wykonac przy takim stanie planszy
     var possibleMoves: [BlankSpaceMove] {
