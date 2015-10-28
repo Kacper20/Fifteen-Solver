@@ -21,7 +21,9 @@ class BoardNode: Comparable, Hashable {
         self.cost = cost
         self.heuristic = heuristic
     }
-    var hashValue: Int { return (Int) (cost + heuristic) }
+    var hashValue: Int {
+        return state.hashValue
+    }
 }
 func < (lhs: BoardNode, rhs: BoardNode) -> Bool {
     return (lhs.cost + lhs.heuristic) < (rhs.cost + rhs.heuristic)

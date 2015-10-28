@@ -32,8 +32,9 @@ Możliwe ruchy dla każdego pustego miejsca - możemy ruszać się w prawo, w le
 enum BlankSpaceMove {
     case Up, Down, Left, Right
 }
-struct Board: Equatable {
+struct Board: Equatable, Hashable {
     let boardElements: [BoardElement]
+    
     ///Inicjalizujemy z tablicą dwuwymiarową(łatwiejsze do wyobrażenia. Ukrywamy implementację(pojedyncza tablica)
     
     //TODO : Zamienić asserty zwracaniem nila :) - failable constructor
@@ -51,8 +52,6 @@ struct Board: Equatable {
     }
     private init(elementsInSingleDArray: [BoardElement]) {
         boardElements = elementsInSingleDArray
-        
-        
     }
     ///makeMove: Przyjmuje ruch, zwraca kolejną tablicę po wykonanym ruchu.
     func makeMove(move: BlankSpaceMove) -> Board? {
@@ -86,8 +85,19 @@ struct Board: Equatable {
         
         return moves
     }
+    var hashValue: Int {
+        var str = ""
+        for elem in boardElements {
+            switch elem {
+            case .BlankPuzzle : str += ("O")
+            case .NumberPuzzle(let val): str += "\(val)"
+            }
+        }
+        return str.hashValue
+    }
 
 }
+
 
 
 ///Board powinno być Equatable - powinniśmy móc porównać jedną planszę z drugą.
