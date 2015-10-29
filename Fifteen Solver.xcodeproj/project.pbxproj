@@ -16,6 +16,7 @@
 		E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C61BD974E900726EB5 /* BoardGenerator.swift */; settings = {ASSET_TAGS = (); }; };
 		E70823C91BD9764800726EB5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C81BD9764800726EB5 /* Board.swift */; settings = {ASSET_TAGS = (); }; };
 		E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */; settings = {ASSET_TAGS = (); }; };
+		E70AC4E61BE2CEE1007F98C5 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */; settings = {ASSET_TAGS = (); }; };
 		E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		E70823C61BD974E900726EB5 /* BoardGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardGenerator.swift; sourceTree = "<group>"; };
 		E70823C81BD9764800726EB5 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolutionSearcher.swift; sourceTree = "<group>"; };
+		E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 		E70823961BD9709100726EB5 /* Fifteen Solver */ = {
 			isa = PBXGroup;
 			children = (
+				E70AC4E41BE2CED7007F98C5 /* Views */,
 				E70823C51BD974B000726EB5 /* Model */,
 				E70823971BD9709100726EB5 /* AppDelegate.swift */,
 				E708239B1BD9709100726EB5 /* Main.storyboard */,
@@ -140,6 +143,14 @@
 				E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E70AC4E41BE2CED7007F98C5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +286,7 @@
 				E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */,
 				E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */,
 				E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */,
+				E70AC4E61BE2CEE1007F98C5 /* BoardView.swift in Sources */,
 				E70823C91BD9764800726EB5 /* Board.swift in Sources */,
 				E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */,
 			);

@@ -36,12 +36,16 @@ func == (lhs: BoardNode, rhs: BoardNode) -> Bool {
 class SolutionSearcher {
     let startingBoard: Board
     let goalBoard: Board
+    let heuristic: Board -> Float
+    let generationFunction: Board -> [(Board, BlankSpaceMove)]
     
     let rootBoardState: BoardNode
-    init(startingBoard: Board, goalBoard: Board, heuristicFunction: Board -> Float) {
+    init(startingBoard: Board, goalBoard: Board, heuristicFunction: Board -> Float, generationFunction: Board -> [(Board, BlankSpaceMove)]) {
         self.startingBoard = startingBoard
         self.goalBoard = goalBoard
+        self.heuristic = heuristicFunction
         //Startowy koszt to 0...
+        self.generationFunction = generationFunction
         rootBoardState = BoardNode(state: self.startingBoard, action: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard))
     }
     
@@ -58,8 +62,8 @@ class SolutionSearcher {
         var nodesGenerated: Int = 0
         var frontierQueue = PriorityQueue(ascending: false, startingValues: [rootBoardState])
         //Slownik - stan & koszt w tym stanie
-        var exploredStatesSet = [BoardNode:Float]()
-        exploredStatesSet[self.rootBoardState] = 0
+        var exploredStatesSet = [Board:Float]()
+        exploredStatesSet[self.rootBoardState.state] = 0
         while !frontierQueue.isEmpty {
             nodesGenerated++
             let currentNode = frontierQueue.pop()!
@@ -69,11 +73,17 @@ class SolutionSearcher {
                 return Solution(startBoard: self.startingBoard, actions: backTrack(currentNode))
             }
             //TODO : Finish up method...
-            
+            //Generujemy stany... Sprobowac napisac bardziej generycznie :)
+            for (child, move) in generationFunction(state) {
+                let newCost = currentNode.cost + 1.0
+                if exploredStatesSet[child] == nil || exploredStatesSet[child] > newCost  {
+                    exploredStatesSet[child] = newCost
+                    frontierQueue.push(BoardNode(state: child, action: move, cost: newCost, heuristic: heuristic(child)))
+                }
+                
+            }
         }
-        
-        
-        
+
         return nil
         
         
