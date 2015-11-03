@@ -97,6 +97,20 @@ struct Board: Equatable, Hashable {
     }
 
 }
+extension Board : ArrayLiteralConvertible {
+
+    init(arrayLiteral elements: Character...) {
+        guard elements.all ({
+            return (Int(String([$0])) != nil || $0 == "_") })
+         else { fatalError("wrong elements") }
+        // TODO: Add erorr checking(exactly one blank puzzle)
+        self.boardElements = elements.map {
+            if let val = Int(String([$0])) { return BoardElement.NumberPuzzle(val) }
+            else { return BoardElement.BlankPuzzle }
+        }
+    }
+}
+
 
 
 

@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7013E0F1BE955180045443C /* NibViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7013E0E1BE955180045443C /* NibViews.swift */; };
+		E7013E121BE9556D0045443C /* BoardSimulationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7013E111BE9556D0045443C /* BoardSimulationViewController.swift */; };
+		E7013E151BE957CF0045443C /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7013E141BE957CF0045443C /* ArrayExtensions.swift */; };
 		E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823971BD9709100726EB5 /* AppDelegate.swift */; };
 		E708239D1BD9709100726EB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E708239B1BD9709100726EB5 /* Main.storyboard */; };
 		E708239F1BD9709100726EB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E708239E1BD9709100726EB5 /* Assets.xcassets */; };
 		E70823A21BD9709100726EB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70823A01BD9709100726EB5 /* LaunchScreen.storyboard */; };
 		E70823AD1BD9709100726EB5 /* Fifteen_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823AC1BD9709100726EB5 /* Fifteen_SolverTests.swift */; };
 		E70823B81BD9709100726EB5 /* Fifteen_SolverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823B71BD9709100726EB5 /* Fifteen_SolverUITests.swift */; };
-		E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C61BD974E900726EB5 /* BoardGenerator.swift */; settings = {ASSET_TAGS = (); }; };
-		E70823C91BD9764800726EB5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C81BD9764800726EB5 /* Board.swift */; settings = {ASSET_TAGS = (); }; };
-		E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */; settings = {ASSET_TAGS = (); }; };
-		E70AC4E61BE2CEE1007F98C5 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */; settings = {ASSET_TAGS = (); }; };
-		E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */; settings = {ASSET_TAGS = (); }; };
+		E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C61BD974E900726EB5 /* BoardGenerator.swift */; };
+		E70823C91BD9764800726EB5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823C81BD9764800726EB5 /* Board.swift */; };
+		E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */; };
+		E70AC4E61BE2CEE1007F98C5 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */; };
+		E70AC4E81BE2D044007F98C5 /* BoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70AC4E71BE2D044007F98C5 /* BoardView.xib */; };
+		E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E7013E0E1BE955180045443C /* NibViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibViews.swift; sourceTree = "<group>"; };
+		E7013E111BE9556D0045443C /* BoardSimulationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSimulationViewController.swift; sourceTree = "<group>"; };
+		E7013E141BE957CF0045443C /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		E70823941BD9709100726EB5 /* Fifteen Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fifteen Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70823971BD9709100726EB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E708239C1BD9709100726EB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -54,6 +61,7 @@
 		E70823C81BD9764800726EB5 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		E70823CA1BD989C000726EB5 /* SolutionSearcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolutionSearcher.swift; sourceTree = "<group>"; };
 		E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		E70AC4E71BE2D044007F98C5 /* BoardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardView.xib; sourceTree = "<group>"; };
 		E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +90,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E7013E101BE9555E0045443C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E7013E111BE9556D0045443C /* BoardSimulationViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E7013E131BE957C60045443C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E7013E141BE957CF0045443C /* ArrayExtensions.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		E708238B1BD9709100726EB5 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +129,8 @@
 		E70823961BD9709100726EB5 /* Fifteen Solver */ = {
 			isa = PBXGroup;
 			children = (
+				E7013E131BE957C60045443C /* Util */,
+				E7013E101BE9555E0045443C /* Controllers */,
 				E70AC4E41BE2CED7007F98C5 /* Views */,
 				E70823C51BD974B000726EB5 /* Model */,
 				E70823971BD9709100726EB5 /* AppDelegate.swift */,
@@ -149,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				E70AC4E51BE2CEE1007F98C5 /* BoardView.swift */,
+				E70AC4E71BE2D044007F98C5 /* BoardView.xib */,
+				E7013E0E1BE955180045443C /* NibViews.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -257,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E70823A21BD9709100726EB5 /* LaunchScreen.storyboard in Resources */,
+				E70AC4E81BE2D044007F98C5 /* BoardView.xib in Resources */,
 				E708239F1BD9709100726EB5 /* Assets.xcassets in Resources */,
 				E708239D1BD9709100726EB5 /* Main.storyboard in Resources */,
 			);
@@ -285,9 +314,12 @@
 			files = (
 				E70823C71BD974E900726EB5 /* BoardGenerator.swift in Sources */,
 				E70823981BD9709100726EB5 /* AppDelegate.swift in Sources */,
+				E7013E121BE9556D0045443C /* BoardSimulationViewController.swift in Sources */,
 				E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */,
+				E7013E0F1BE955180045443C /* NibViews.swift in Sources */,
 				E70AC4E61BE2CEE1007F98C5 /* BoardView.swift in Sources */,
 				E70823C91BD9764800726EB5 /* Board.swift in Sources */,
+				E7013E151BE957CF0045443C /* ArrayExtensions.swift in Sources */,
 				E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

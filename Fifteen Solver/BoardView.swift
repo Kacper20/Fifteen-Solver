@@ -9,3 +9,21 @@
 import UIKit
 
 
+
+class BoardView: UIView {
+    
+    @IBOutlet weak var boardLabel: UILabel!
+    
+    var boardElement: BoardElement? {
+        didSet {
+            guard let elem = boardElement else { return }
+            switch elem {
+            case .BlankPuzzle:
+                self.boardLabel.text = "B"
+            case let .NumberPuzzle(value):
+                self.boardLabel.text = "\(value)"
+            }
+        }
+    }
+    
+}
