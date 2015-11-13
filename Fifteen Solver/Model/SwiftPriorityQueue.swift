@@ -31,7 +31,7 @@
 /// at the time of initialization.
 public struct PriorityQueue<T: Comparable> {
     
-    private var heap = [T]()
+    public var heap = [T]()
     private let ordered: (T, T) -> Bool
     
     public init(ascending: Bool = false, startingValues: [T] = []) {

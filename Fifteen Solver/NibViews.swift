@@ -9,7 +9,7 @@
 import UIKit
 
 enum Views: String {
-    case BoardView = "BoardView" //Change View1 to be the name of your nib
+    case BoardElementView = "BoardElementView" //Change View1 to be the name of your nib
 func getView() -> UIView {
     return NSBundle.mainBundle().loadNibNamed(self.rawValue, owner: nil, options: nil)[0] as! UIView
 }

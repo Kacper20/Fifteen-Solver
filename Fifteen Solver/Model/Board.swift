@@ -12,10 +12,17 @@ import Foundation
 
 
 ///BoardElement - element
-enum BoardElement {
+enum BoardElement: CustomStringConvertible {
     
     case BlankPuzzle
     case NumberPuzzle(Int)
+    
+    var description: String {
+        switch self {
+        case .BlankPuzzle: return "_"
+        case .NumberPuzzle(let val): return "\(val)"
+        }
+    }
 }
 extension BoardElement: Equatable { }
     
@@ -54,8 +61,8 @@ struct Board: Equatable, Hashable {
         boardElements = elementsInSingleDArray
     }
     ///makeMove: Przyjmuje ruch, zwraca kolejną tablicę po wykonanym ruchu.
-    func makeMove(move: BlankSpaceMove) -> Board? {
-        guard possibleMoves.contains(move) else { return nil }
+    func makeMove(move: BlankSpaceMove) -> Board {
+        guard possibleMoves.contains(move) else { fatalError("Should got one of the possible moves...")}
         var newArr = boardElements
         let indxOfBlank = self.boardElements.indexOf(.BlankPuzzle)!
         let elementsInRow: Int = Int(sqrt(Double(boardElements.count + 1)))
@@ -71,6 +78,7 @@ struct Board: Equatable, Hashable {
         return Board(elementsInSingleDArray: newArr)
 
     }
+    ///Kolejnosc - Up, Down, Left, Right
     ///possibleMoves - zwraca ruchy, ktore jestesmy w stanie wykonac przy takim stanie planszy
     var possibleMoves: [BlankSpaceMove] {
         //Sprawdzamy indeks pola pustego. Unwrapping - jesteśmy pewni że istnieje, zapewniamy to w konstruktorze.
@@ -78,10 +86,10 @@ struct Board: Equatable, Hashable {
         let indxOfBlank = self.boardElements.indexOf(.BlankPuzzle)!
         let allElements = boardElements.count
         let elementsInRow: Int = Int(sqrt(Double(boardElements.count + 1)))
-        if indxOfBlank + elementsInRow < allElements { moves.append(.Up) }
-        if indxOfBlank - elementsInRow > -1 { moves.append(.Down) }
+        if indxOfBlank - elementsInRow > -1 { moves.append(.Up) }
+        if indxOfBlank + elementsInRow < allElements { moves.append(.Down) }
         if indxOfBlank % elementsInRow != 0 { moves.append(.Left) }
-        if indxOfBlank + 1 % elementsInRow != 0 { moves.append(.Right) }
+        if (indxOfBlank + 1) % elementsInRow != 0 { moves.append(.Right) }
         
         return moves
     }
@@ -97,15 +105,23 @@ struct Board: Equatable, Hashable {
     }
 
 }
+
+extension Board {
+    func standardGeneratorFunction() -> [(Board, BlankSpaceMove)] {
+        return self.possibleMoves.map {
+            return (self.makeMove($0), $0)
+        }
+    }
+}
 extension Board : ArrayLiteralConvertible {
 
-    init(arrayLiteral elements: Character...) {
+    init(arrayLiteral elements: String...) {
         guard elements.all ({
-            return (Int(String([$0])) != nil || $0 == "_") })
+            return Int($0) != nil || $0 == "_" })
          else { fatalError("wrong elements") }
         // TODO: Add erorr checking(exactly one blank puzzle)
         self.boardElements = elements.map {
-            if let val = Int(String([$0])) { return BoardElement.NumberPuzzle(val) }
+            if let val = Int($0) { return BoardElement.NumberPuzzle(val) }
             else { return BoardElement.BlankPuzzle }
         }
     }
@@ -118,8 +134,8 @@ extension Board : ArrayLiteralConvertible {
 
 func ==(lhs: Board, rhs: Board) -> Bool {
     let elemsCount = lhs.boardElements.count
-    for i in 0..<elemsCount {
-        if lhs.boardElements[i] != rhs.boardElements[i] { return false }
+    for i in 0..<elemsCount where lhs.boardElements[i] != rhs.boardElements[i]{
+        return false
     }
     return true
 }

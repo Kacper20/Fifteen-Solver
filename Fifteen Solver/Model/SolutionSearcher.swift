@@ -10,12 +10,14 @@ import Foundation
 
 
 
-class BoardNode: Comparable, Hashable {
+class BoardNode: Comparable, Hashable, CustomStringConvertible {
     let state: Board
     let generationAction: BlankSpaceMove?
     let cost: Float
     let heuristic: Float
-    init(state: Board, action: BlankSpaceMove?, cost: Float, heuristic: Float) {
+    var parentNode: BoardNode?
+    init(state: Board, action: BlankSpaceMove?, parentNode: BoardNode?, cost: Float, heuristic: Float) {
+        self.parentNode = parentNode
         self.state = state
         self.generationAction = action
         self.cost = cost
@@ -23,6 +25,9 @@ class BoardNode: Comparable, Hashable {
     }
     var hashValue: Int {
         return state.hashValue
+    }
+    var description: String {
+        return "PLANSZA: \(state), cost: \(cost + heuristic)"
     }
 }
 func < (lhs: BoardNode, rhs: BoardNode) -> Bool {
@@ -33,26 +38,47 @@ func == (lhs: BoardNode, rhs: BoardNode) -> Bool {
     return lhs === rhs
 }
 
-class SolutionSearcher {
+func badHeuristic(brd: Board) -> Float {
+    return 1.0
+    
+}
+
+public class SolutionSearcher {
     let startingBoard: Board
     let goalBoard: Board
     let heuristic: Board -> Float
     let generationFunction: Board -> [(Board, BlankSpaceMove)]
     
     let rootBoardState: BoardNode
+    
+    /**
+     Initializes SolutionSearcher with data
+     :param: startingBoard    Board that solution starts with
+     :param: goalBoard        Goal board for the solution
+     :param: heuristicFunction Function that tells us "optimistic" evaluation of cost for given board
+     :param: generationFunction Function that takes one Board, and based on it's state, generates another boards that are possible to achieve from given, among with moves that generates each new board
+     */
+
     init(startingBoard: Board, goalBoard: Board, heuristicFunction: Board -> Float, generationFunction: Board -> [(Board, BlankSpaceMove)]) {
         self.startingBoard = startingBoard
         self.goalBoard = goalBoard
         self.heuristic = heuristicFunction
         //Startowy koszt to 0...
         self.generationFunction = generationFunction
-        rootBoardState = BoardNode(state: self.startingBoard, action: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard))
+        rootBoardState = BoardNode(state: self.startingBoard, action: nil, parentNode: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard))
+    }
+    convenience init(startingBoard: Board, goalBoard: Board) {
+        self.init(startingBoard: startingBoard, goalBoard: goalBoard, heuristicFunction: badHeuristic) { (board) -> [(Board, BlankSpaceMove)] in
+            return board.standardGeneratorFunction()
+        }
     }
     
-    func backTrack(node: BoardNode) -> [BlankSpaceMove] {
+    private func backTrack(node: BoardNode) -> [BlankSpaceMove] {
+        var tempNode = node //For better visibility
         var moves = [BlankSpaceMove]()
-        while let moveThatGeneratedNode = node.generationAction {
-            moves.append(moveThatGeneratedNode)
+        while let node = tempNode.parentNode, let action = tempNode.generationAction {
+            moves.append(action)
+            tempNode = node
         }
         return moves.reverse()
     }
@@ -60,7 +86,7 @@ class SolutionSearcher {
     func generateSolution() -> Solution? {
         //Dążymy do najmniejszego celu
         var nodesGenerated: Int = 0
-        var frontierQueue = PriorityQueue(ascending: false, startingValues: [rootBoardState])
+        var frontierQueue = PriorityQueue(ascending: true, startingValues: [rootBoardState])
         //Slownik - stan & koszt w tym stanie
         var exploredStatesSet = [Board:Float]()
         exploredStatesSet[self.rootBoardState.state] = 0
@@ -72,13 +98,12 @@ class SolutionSearcher {
                 print("Searched \(nodesGenerated) nodes")
                 return Solution(startBoard: self.startingBoard, actions: backTrack(currentNode))
             }
-            //TODO : Finish up method...
             //Generujemy stany... Sprobowac napisac bardziej generycznie :)
             for (child, move) in generationFunction(state) {
                 let newCost = currentNode.cost + 1.0
                 if exploredStatesSet[child] == nil || exploredStatesSet[child] > newCost  {
                     exploredStatesSet[child] = newCost
-                    frontierQueue.push(BoardNode(state: child, action: move, cost: newCost, heuristic: heuristic(child)))
+                    frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child)))
                 }
                 
             }
