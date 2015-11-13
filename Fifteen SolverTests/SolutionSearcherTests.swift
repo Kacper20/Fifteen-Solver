@@ -58,6 +58,15 @@ class SolutionSearcherTests: XCTestCase {
         ]
         XCTAssertEqual(helperFunction(board1, ending: board2).count, 1)
     }
+    func testDifferenceThreeMovesMove() {
+        let board1: Board = [
+            "4", "1", "3", "_", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "2"
+        ]
+        let board2: Board = [
+            "_", "1", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "2"
+        ]
+        XCTAssertEqual(helperFunction(board1, ending: board2).count, 1)
+    }
 
     
 }

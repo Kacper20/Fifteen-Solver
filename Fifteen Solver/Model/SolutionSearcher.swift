@@ -38,15 +38,15 @@ func == (lhs: BoardNode, rhs: BoardNode) -> Bool {
     return lhs === rhs
 }
 
-func badHeuristic(brd: Board) -> Float {
+func badHeuristic(brd: Board, secBrd: Board) -> Float {
     return 1.0
-    
 }
 
 public class SolutionSearcher {
     let startingBoard: Board
     let goalBoard: Board
-    let heuristic: Board -> Float
+    typealias HeuristicFunction = (Board, Board) -> Float
+    let heuristic: (Board, Board) -> Float
     let generationFunction: Board -> [(Board, BlankSpaceMove)]
     
     let rootBoardState: BoardNode
@@ -59,20 +59,19 @@ public class SolutionSearcher {
      :param: generationFunction Function that takes one Board, and based on it's state, generates another boards that are possible to achieve from given, among with moves that generates each new board
      */
 
-    init(startingBoard: Board, goalBoard: Board, heuristicFunction: Board -> Float, generationFunction: Board -> [(Board, BlankSpaceMove)]) {
+    init(startingBoard: Board, goalBoard: Board, heuristicFunction: (Board, Board) -> Float, generationFunction: Board -> [(Board, BlankSpaceMove)]) {
         self.startingBoard = startingBoard
         self.goalBoard = goalBoard
         self.heuristic = heuristicFunction
         //Startowy koszt to 0...
         self.generationFunction = generationFunction
-        rootBoardState = BoardNode(state: self.startingBoard, action: nil, parentNode: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard))
+        rootBoardState = BoardNode(state: self.startingBoard, action: nil, parentNode: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard, self.goalBoard))
     }
-    convenience init(startingBoard: Board, goalBoard: Board) {
+    convenience init(startingBoard: Board, goalBoard: Board, heuristicFunction: HeuristicFunction = badHeuristic){
         self.init(startingBoard: startingBoard, goalBoard: goalBoard, heuristicFunction: badHeuristic) { (board) -> [(Board, BlankSpaceMove)] in
             return board.standardGeneratorFunction()
         }
     }
-    
     private func backTrack(node: BoardNode) -> [BlankSpaceMove] {
         var tempNode = node //For better visibility
         var moves = [BlankSpaceMove]()
@@ -103,9 +102,8 @@ public class SolutionSearcher {
                 let newCost = currentNode.cost + 1.0
                 if exploredStatesSet[child] == nil || exploredStatesSet[child] > newCost  {
                     exploredStatesSet[child] = newCost
-                    frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child)))
+                    frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child, self.goalBoard)))
                 }
-                
             }
         }
 

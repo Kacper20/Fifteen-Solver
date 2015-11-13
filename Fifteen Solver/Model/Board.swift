@@ -15,7 +15,7 @@ import Foundation
 enum BoardElement: CustomStringConvertible {
     
     case BlankPuzzle
-    case NumberPuzzle(Int)
+    case NumberPuzzle(UInt8)
     
     var description: String {
         switch self {
@@ -33,6 +33,26 @@ extension BoardElement: Equatable { }
     default: return false
     }
 }
+
+struct Heuristics {
+    
+    typealias BoardHeuristics = (Board, Board) -> Float
+    static var badHeuristic: BoardHeuristics = {(_, _) -> Float in
+        return 1.0
+    }
+    static var quiteGoodHeuristic: BoardHeuristics = { (boardStart, boardGoal) -> Float in
+        var numberOfCompatibles: Int = 0
+        for (ind,elem) in boardStart.boardElements.enumerate() {
+            if elem == boardGoal.boardElements[ind] { numberOfCompatibles += 1 }
+        }
+        return Float(16 - numberOfCompatibles)
+        
+    }
+    
+}
+
+
+
 /**BlankSpaceMoveType 
 Możliwe ruchy dla każdego pustego miejsca - możemy ruszać się w prawo, w lewo, w przód, w dół
 */
@@ -121,7 +141,7 @@ extension Board : ArrayLiteralConvertible {
          else { fatalError("wrong elements") }
         // TODO: Add erorr checking(exactly one blank puzzle)
         self.boardElements = elements.map {
-            if let val = Int($0) { return BoardElement.NumberPuzzle(val) }
+            if let intValue = Int($0) { return BoardElement.NumberPuzzle(UInt8(intValue)) }
             else { return BoardElement.BlankPuzzle }
         }
     }

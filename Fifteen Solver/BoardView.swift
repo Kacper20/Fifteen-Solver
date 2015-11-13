@@ -41,7 +41,7 @@ class BoardView: UIView {
         for i in 0..<numberOfRows {
             for j in 0..<numberOfColumns {
                 let view = views[i * numberOfRows + j ]
-                view.layer.borderColor = UIColor.blackColor().CGColor
+                view.layer.borderColor = UIColor.lightGrayColor().CGColor
                 view.layer.borderWidth = 1.0
                 view.frame = CGRectMake(startingPoint.x, startingPoint.y, sizeOfOneElement, sizeOfOneElement)
                 view.backgroundColor = UIColor(red:0.25, green:0.56, blue:0.36, alpha:1)
