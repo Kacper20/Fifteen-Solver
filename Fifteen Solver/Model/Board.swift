@@ -133,6 +133,33 @@ extension Board {
         }
     }
 }
+
+extension Board {
+    
+    private func rowAndColumnForIndex(indx: Int, gridSize: Int) -> (Int, Int) {
+        let row = Int(Double(indx) / Double(gridSize))
+        let column = indx % gridSize
+        return (row, column)
+    }
+    private func distanceFromIndx(indx1: Int, toIndx indx2: Int, withGridSize gridSize: Int) -> Int {
+        let (firstRow, firstColumn) = rowAndColumnForIndex(indx1, gridSize: gridSize)
+        let (secondRow, secondColumn) = rowAndColumnForIndex(indx2, gridSize: gridSize)
+        return abs(firstRow - secondRow) + abs(firstColumn - secondColumn)
+    }
+    
+    
+    
+    func sumOfDistancesToOtherBoard(otherBoard: Board) -> Int {
+        var sumOfDistances: Int = 0
+        for (i, elem ) in self.boardElements.enumerate() {
+            guard let otherIndx = otherBoard.boardElements.indexOf(elem) else { fatalError("elements should match") }
+            sumOfDistances += distanceFromIndx(i, toIndx: otherIndx, withGridSize: 4.0)
+        }
+        return sumOfDistances
+        
+        
+    }
+}
 extension Board : ArrayLiteralConvertible {
 
     init(arrayLiteral elements: String...) {

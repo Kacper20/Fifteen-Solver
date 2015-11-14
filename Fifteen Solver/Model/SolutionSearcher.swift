@@ -100,8 +100,8 @@ public class SolutionSearcher {
             //Generujemy stany... Sprobowac napisac bardziej generycznie :)
             for (child, move) in generationFunction(state) {
                 let newCost = currentNode.cost + 1.0
-                if exploredStatesSet[child] == nil || exploredStatesSet[child] > newCost  {
-                    exploredStatesSet[child] = newCost
+                if exploredStatesSet[child] == nil  {
+                    exploredStatesSet[child] = 0.0
                     frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child, self.goalBoard)))
                 }
             }
