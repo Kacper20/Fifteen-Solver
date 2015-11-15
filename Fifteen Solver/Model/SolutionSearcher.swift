@@ -47,7 +47,6 @@ public class SolutionSearcher {
     let goalBoard: Board
     typealias HeuristicFunction = (Board, Board) -> Float
     let heuristic: (Board, Board) -> Float
-    let generationFunction: Board -> [(Board, BlankSpaceMove)]
     
     let rootBoardState: BoardNode
     
@@ -59,18 +58,12 @@ public class SolutionSearcher {
      :param: generationFunction Function that takes one Board, and based on it's state, generates another boards that are possible to achieve from given, among with moves that generates each new board
      */
 
-    init(startingBoard: Board, goalBoard: Board, heuristicFunction: (Board, Board) -> Float, generationFunction: Board -> [(Board, BlankSpaceMove)]) {
+    init(startingBoard: Board, goalBoard: Board, heuristicFunction: (Board, Board) -> Float = badHeuristic) {
         self.startingBoard = startingBoard
         self.goalBoard = goalBoard
         self.heuristic = heuristicFunction
         //Startowy koszt to 0...
-        self.generationFunction = generationFunction
         rootBoardState = BoardNode(state: self.startingBoard, action: nil, parentNode: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard, self.goalBoard))
-    }
-    convenience init(startingBoard: Board, goalBoard: Board, heuristicFunction: HeuristicFunction = badHeuristic){
-        self.init(startingBoard: startingBoard, goalBoard: goalBoard, heuristicFunction: badHeuristic) { (board) -> [(Board, BlankSpaceMove)] in
-            return board.standardGeneratorFunction()
-        }
     }
     private func backTrack(node: BoardNode) -> [BlankSpaceMove] {
         var tempNode = node //For better visibility
@@ -87,8 +80,6 @@ public class SolutionSearcher {
         var nodesGenerated: Int = 0
         var frontierQueue = PriorityQueue(ascending: true, startingValues: [rootBoardState])
         //Slownik - stan & koszt w tym stanie
-        var exploredStatesSet = [Board:Float]()
-        exploredStatesSet[self.rootBoardState.state] = 0
         while !frontierQueue.isEmpty {
             nodesGenerated++
             let currentNode = frontierQueue.pop()!
@@ -98,12 +89,10 @@ public class SolutionSearcher {
                 return Solution(startBoard: self.startingBoard, actions: backTrack(currentNode))
             }
             //Generujemy stany... Sprobowac napisac bardziej generycznie :)
-            for (child, move) in generationFunction(state) {
+            for (child, move) in state.standardGeneratorFunction(currentNode.parentNode?.state)
+                 {
                 let newCost = currentNode.cost + 1.0
-                if exploredStatesSet[child] == nil  {
-                    exploredStatesSet[child] = 0.0
                     frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child, self.goalBoard)))
-                }
             }
         }
 

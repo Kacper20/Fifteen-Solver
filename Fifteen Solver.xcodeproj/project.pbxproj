@@ -24,6 +24,7 @@
 		E729AC791BF66C6D007597FF /* SolutionSearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E729AC781BF66C6D007597FF /* SolutionSearcherTests.swift */; };
 		E7404A8D1BEF8446002E0F85 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7404A8C1BEF8446002E0F85 /* BoardView.swift */; };
 		E744E28A1BE00D8A00D48EC4 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */; };
+		E7FC86021BF913F40036C587 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FC86011BF913F40036C587 /* Timer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		E729AC781BF66C6D007597FF /* SolutionSearcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolutionSearcherTests.swift; sourceTree = "<group>"; };
 		E7404A8C1BEF8446002E0F85 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		E744E2891BE00D8A00D48EC4 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
+		E7FC86011BF913F40036C587 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				E7013E141BE957CF0045443C /* ArrayExtensions.swift */,
+				E7FC86011BF913F40036C587 /* Timer.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				E70823C91BD9764800726EB5 /* Board.swift in Sources */,
 				E7404A8D1BEF8446002E0F85 /* BoardView.swift in Sources */,
 				E7013E151BE957CF0045443C /* ArrayExtensions.swift in Sources */,
+				E7FC86021BF913F40036C587 /* Timer.swift in Sources */,
 				E70823CB1BD989C000726EB5 /* SolutionSearcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -127,9 +127,18 @@ struct Board: Equatable, Hashable {
 }
 
 extension Board {
-    func standardGeneratorFunction() -> [(Board, BlankSpaceMove)] {
-        return self.possibleMoves.map {
+    func standardGeneratorFunction(parentBoard: Board?) -> [(Board, BlankSpaceMove)] {
+        let mapped = self.possibleMoves.map {
             return (self.makeMove($0), $0)
+            }
+        
+        if let parentBoard = parentBoard {
+            return mapped.filter { (board, move) -> Bool in
+                board != parentBoard
+            }
+        }
+        else {
+            return mapped
         }
     }
 }
@@ -153,7 +162,7 @@ extension Board {
         var sumOfDistances: Int = 0
         for (i, elem ) in self.boardElements.enumerate() {
             guard let otherIndx = otherBoard.boardElements.indexOf(elem) else { fatalError("elements should match") }
-            sumOfDistances += distanceFromIndx(i, toIndx: otherIndx, withGridSize: 4.0)
+            sumOfDistances += distanceFromIndx(i, toIndx: otherIndx, withGridSize: 4)
         }
         return sumOfDistances
         

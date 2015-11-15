@@ -27,7 +27,7 @@ class BoardSimulationViewController: UIViewController {
         ]
         boardView.boardElements = board5.boardElements
         
-        
+        let timer = ParkBenchTimer()
         let board1: Board = [
             "4", "1", "3", "_", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "2"
         ]
@@ -36,7 +36,7 @@ class BoardSimulationViewController: UIViewController {
         ]
         let result = helperFunction(board1, ending: board2)
         print("GOT IT...")
-        print("Result: \(result)")
+        print("Result:  \(result) after: \(timer.stop()) seconds")
         print("")
         
     }
