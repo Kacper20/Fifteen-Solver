@@ -46,8 +46,11 @@ struct Heuristics {
             if elem == boardGoal.boardElements[ind] { numberOfCompatibles += 1 }
         }
         return Float(16 - numberOfCompatibles)
-        
     }
+    static var manhattanDistanceHeuristic: BoardHeuristics = { (boardStart, boardGoal) -> Float in
+        return Float(boardStard.sumOfDistancesToOtherBoard(boardGoal))
+    }
+    
     
 }
 

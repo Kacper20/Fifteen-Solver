@@ -15,7 +15,7 @@ class BoardSimulationViewController: UIViewController {
     ///No usage of Autolayout -> visualisation is only a small feature, not something to bother :)
     let viewOffsets: CGFloat = 16.0
     func helperFunction(starting: Board, ending: Board) -> [BlankSpaceMove] {
-        let searcher = SolutionSearcher(startingBoard: starting, goalBoard: ending, heuristicFunction: Heuristics.quiteGoodHeuristic)
+        let searcher = SolutionSearcher(startingBoard: starting, goalBoard: ending, heuristicFunction: Heuristics.manhattanDistanceHeuristic)
         return searcher.generateSolution()!.actionsArray
     }
     

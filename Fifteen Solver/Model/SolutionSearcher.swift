@@ -80,6 +80,8 @@ public class SolutionSearcher {
         var nodesGenerated: Int = 0
         var frontierQueue = PriorityQueue(ascending: true, startingValues: [rootBoardState])
         //Slownik - stan & koszt w tym stanie
+        var discoveredBoards: [Board : Bool] = [:]
+        discoveredBoards[rootBoardState.state] = true
         while !frontierQueue.isEmpty {
             nodesGenerated++
             let currentNode = frontierQueue.pop()!
@@ -89,8 +91,9 @@ public class SolutionSearcher {
                 return Solution(startBoard: self.startingBoard, actions: backTrack(currentNode))
             }
             //Generujemy stany... Sprobowac napisac bardziej generycznie :)
-            for (child, move) in state.standardGeneratorFunction(currentNode.parentNode?.state)
+            for (child, move) in state.standardGeneratorFunction(currentNode.parentNode?.state) where discoveredBoards[child] == nil
                  {
+                    discoveredBoards[child] = true
                 let newCost = currentNode.cost + 1.0
                     frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child, self.goalBoard)))
             }
