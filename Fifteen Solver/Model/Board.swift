@@ -8,19 +8,15 @@
 
 import Foundation
 
-
-
-
-///BoardElement - element
 enum BoardElement: CustomStringConvertible {
     
-    case BlankPuzzle
-    case NumberPuzzle(UInt8)
+    case blankPuzzle
+    case numberPuzzle(UInt8)
     
     var description: String {
         switch self {
-        case .BlankPuzzle: return "_"
-        case .NumberPuzzle(let val): return "\(val)"
+        case .blankPuzzle: return "_"
+        case .numberPuzzle(let val): return "\(val)"
         }
     }
 }
@@ -28,8 +24,8 @@ extension BoardElement: Equatable { }
     
     func ==(lhs: BoardElement, rhs: BoardElement) -> Bool {
     switch (lhs, rhs) {
-        case (.BlankPuzzle, .BlankPuzzle) : return true
-        case (let .NumberPuzzle(num1), let .NumberPuzzle(num2)): return num1 == num2
+        case (.blankPuzzle, .blankPuzzle) : return true
+        case (let .numberPuzzle(num1), let .numberPuzzle(num2)): return num1 == num2
     default: return false
     }
 }
@@ -41,17 +37,15 @@ struct Heuristics {
         return 1.0
     }
     static var quiteGoodHeuristic: BoardHeuristics = { (boardStart, boardGoal) -> Float in
-        var numberOfCompatibles: Int = 0
-        for (ind,elem) in boardStart.boardElements.enumerate() {
-            if elem == boardGoal.boardElements[ind] { numberOfCompatibles += 1 }
+        let result = boardStart.boardElements.enumerated().reduce(0) { (result, current) in
+            let addition = current.1 == boardGoal.boardElements[current.0] ? 1 : 0
+            return result + addition
         }
-        return Float(16 - numberOfCompatibles)
+        return Float(16 - result)
     }
     static var manhattanDistanceHeuristic: BoardHeuristics = { (boardStart, boardGoal) -> Float in
-        return Float(boardStard.sumOfDistancesToOtherBoard(boardGoal))
+        return Float(boardStart.sumOfDistances(to: boardGoal))
     }
-    
-    
 }
 
 
@@ -64,30 +58,27 @@ enum BlankSpaceMove {
 }
 struct Board: Equatable, Hashable {
     let boardElements: [BoardElement]
-    
-    ///Inicjalizujemy z tablicą dwuwymiarową(łatwiejsze do wyobrażenia. Ukrywamy implementację(pojedyncza tablica)
-    
-    //TODO : Zamienić asserty zwracaniem nila :) - failable constructor
+
     init(elements: [[BoardElement]]) {
-        assert(elements.count == 4, "Liczba kolumn powinna wynosić 4!")
+        assert(elements.count == 4, "Number of columns should be 4")
         for element in elements {
-            assert(element.count == 4, "Liczba elementów we wierszu powinna wynosić 4!")
+            assert(element.count == 4, "Number of elements in each column should be 4")
         }
         boardElements = elements.flatMap { $0 }
         //Sprawdzamy jeszcze, czy istnieje blank Puzzle
-        let indx = boardElements.indexOf { (element) -> Bool in
-            element == BoardElement.BlankPuzzle
-        }
+        let indx = boardElements.index (where: { (element) -> Bool in
+            element == BoardElement.blankPuzzle
+        })
         assert(indx != nil, "Powinniśmy dostać blank puzzle gdzieś w planszy.")
     }
     private init(elementsInSingleDArray: [BoardElement]) {
         boardElements = elementsInSingleDArray
     }
     ///makeMove: Przyjmuje ruch, zwraca kolejną tablicę po wykonanym ruchu.
-    func makeMove(move: BlankSpaceMove) -> Board {
+    func make(move: BlankSpaceMove) -> Board {
         guard possibleMoves.contains(move) else { fatalError("Should got one of the possible moves...")}
         var newArr = boardElements
-        let indxOfBlank = self.boardElements.indexOf(.BlankPuzzle)!
+        let indxOfBlank = self.boardElements.index(of: .blankPuzzle)!
         let elementsInRow: Int = Int(sqrt(Double(boardElements.count + 1)))
         let indxOfPuzzleToMoveWith = { Void -> Int in
             switch move {
@@ -99,14 +90,13 @@ struct Board: Equatable, Hashable {
         }()
         swap(&newArr[indxOfBlank], &newArr[indxOfPuzzleToMoveWith])
         return Board(elementsInSingleDArray: newArr)
-
     }
     ///Kolejnosc - Up, Down, Left, Right
     ///possibleMoves - zwraca ruchy, ktore jestesmy w stanie wykonac przy takim stanie planszy
     var possibleMoves: [BlankSpaceMove] {
         //Sprawdzamy indeks pola pustego. Unwrapping - jesteśmy pewni że istnieje, zapewniamy to w konstruktorze.
         var moves = [BlankSpaceMove]()
-        let indxOfBlank = self.boardElements.indexOf(.BlankPuzzle)!
+        let indxOfBlank = self.boardElements.index(of: .blankPuzzle)!
         let allElements = boardElements.count
         let elementsInRow: Int = Int(sqrt(Double(boardElements.count + 1)))
         if indxOfBlank - elementsInRow > -1 { moves.append(.Up) }
@@ -120,8 +110,8 @@ struct Board: Equatable, Hashable {
         var str = ""
         for elem in boardElements {
             switch elem {
-            case .BlankPuzzle : str += ("O")
-            case .NumberPuzzle(let val): str += "\(val)"
+            case .blankPuzzle : str += ("O")
+            case .numberPuzzle(let val): str += "\(val)"
             }
         }
         return str.hashValue
@@ -132,15 +122,14 @@ struct Board: Equatable, Hashable {
 extension Board {
     func standardGeneratorFunction(parentBoard: Board?) -> [(Board, BlankSpaceMove)] {
         let mapped = self.possibleMoves.map {
-            return (self.makeMove($0), $0)
+            return (self.make(move: $0), $0)
             }
         
         if let parentBoard = parentBoard {
             return mapped.filter { (board, move) -> Bool in
                 board != parentBoard
             }
-        }
-        else {
+        } else {
             return mapped
         }
     }
@@ -148,31 +137,29 @@ extension Board {
 
 extension Board {
     
-    private func rowAndColumnForIndex(indx: Int, gridSize: Int) -> (Int, Int) {
+    private func rowAndColumn(for indx: Int, gridSize: Int) -> (Int, Int) {
         let row = Int(Double(indx) / Double(gridSize))
         let column = indx % gridSize
         return (row, column)
     }
-    private func distanceFromIndx(indx1: Int, toIndx indx2: Int, withGridSize gridSize: Int) -> Int {
-        let (firstRow, firstColumn) = rowAndColumnForIndex(indx1, gridSize: gridSize)
-        let (secondRow, secondColumn) = rowAndColumnForIndex(indx2, gridSize: gridSize)
+    private func distance(from indx1: Int, toIndx indx2: Int, withGridSize gridSize: Int) -> Int {
+        let (firstRow, firstColumn) = rowAndColumn(for: indx1, gridSize: gridSize)
+        let (secondRow, secondColumn) = rowAndColumn(for: indx2, gridSize: gridSize)
         return abs(firstRow - secondRow) + abs(firstColumn - secondColumn)
     }
-    
-    
-    
-    func sumOfDistancesToOtherBoard(otherBoard: Board) -> Int {
+
+    func sumOfDistances(to otherBoard: Board) -> Int {
         var sumOfDistances: Int = 0
-        for (i, elem ) in self.boardElements.enumerate() {
-            guard let otherIndx = otherBoard.boardElements.indexOf(elem) else { fatalError("elements should match") }
-            sumOfDistances += distanceFromIndx(i, toIndx: otherIndx, withGridSize: 4)
+        for (i, elem ) in self.boardElements.enumerated() {
+            guard let otherIndx = otherBoard.boardElements.index(of: elem) else { fatalError("elements should match") }
+            sumOfDistances += distance(from: i, toIndx: otherIndx, withGridSize: 4)
         }
         return sumOfDistances
         
         
     }
 }
-extension Board : ArrayLiteralConvertible {
+extension Board : ExpressibleByArrayLiteral {
 
     init(arrayLiteral elements: String...) {
         guard elements.all ({
@@ -180,23 +167,16 @@ extension Board : ArrayLiteralConvertible {
          else { fatalError("wrong elements") }
         // TODO: Add erorr checking(exactly one blank puzzle)
         self.boardElements = elements.map {
-            if let intValue = Int($0) { return BoardElement.NumberPuzzle(UInt8(intValue)) }
-            else { return BoardElement.BlankPuzzle }
+            if let intValue = Int($0) { return BoardElement.numberPuzzle(UInt8(intValue)) }
+            else { return BoardElement.blankPuzzle }
         }
     }
 }
 
-
-
-
-///Board powinno być Equatable - powinniśmy móc porównać jedną planszę z drugą.
-
-func ==(lhs: Board, rhs: Board) -> Bool {
+func == (lhs: Board, rhs: Board) -> Bool {
     let elemsCount = lhs.boardElements.count
     for i in 0..<elemsCount where lhs.boardElements[i] != rhs.boardElements[i]{
         return false
     }
     return true
 }
-
-

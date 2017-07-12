@@ -8,28 +8,26 @@
 
 import UIKit
 
-
-
 class BoardElementView: UIView {
-    
-    
+
     var boardElement: BoardElement? {
         didSet {
             guard let elem = boardElement else { return }
             switch elem {
-            case .BlankPuzzle:
+            case .blankPuzzle:
                 self.label.text = ""
-                self.backgroundColor = UIColor.lightGrayColor()
-            case let .NumberPuzzle(value):
+                self.backgroundColor = .lightGray
+            case let .numberPuzzle(value):
                 self.label.text = "\(value)"
             }
         }
     }
     
-    var label: UILabel
+    let label: UILabel
+
     override init(frame: CGRect) {
         label = UILabel()
-        label.textColor = .whiteColor()
+        label.textColor = .white
         super.init(frame: frame)
         self.addSubview(label)
 

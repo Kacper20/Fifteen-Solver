@@ -58,7 +58,7 @@ public class SolutionSearcher {
      :param: generationFunction Function that takes one Board, and based on it's state, generates another boards that are possible to achieve from given, among with moves that generates each new board
      */
 
-    init(startingBoard: Board, goalBoard: Board, heuristicFunction: (Board, Board) -> Float = badHeuristic) {
+    init(startingBoard: Board, goalBoard: Board, heuristicFunction: @escaping (Board, Board) -> Float = badHeuristic) {
         self.startingBoard = startingBoard
         self.goalBoard = goalBoard
         self.heuristic = heuristicFunction
@@ -76,10 +76,8 @@ public class SolutionSearcher {
     }
     
     func generateSolution() -> Solution? {
-        //Dążymy do najmniejszego celu
         var nodesGenerated: Int = 0
         var frontierQueue = PriorityQueue(ascending: true, startingValues: [rootBoardState])
-        //Slownik - stan & koszt w tym stanie
         var discoveredBoards: [Board : Bool] = [:]
         discoveredBoards[rootBoardState.state] = true
         while !frontierQueue.isEmpty {
@@ -98,10 +96,7 @@ public class SolutionSearcher {
                     frontierQueue.push(BoardNode(state: child, action: move, parentNode: currentNode ,cost: newCost, heuristic: heuristic(child, self.goalBoard)))
             }
         }
-
         return nil
-        
-        
     }
 }
 

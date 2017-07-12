@@ -12,7 +12,7 @@ import UIKit
 class BoardSimulationViewController: UIViewController {
     
     @IBOutlet weak var boardView: BoardView!
-    ///No usage of Autolayout -> visualisation is only a small feature, not something to bother :)
+    
     let viewOffsets: CGFloat = 16.0
     func helperFunction(starting: Board, ending: Board) -> [BlankSpaceMove] {
         let searcher = SolutionSearcher(startingBoard: starting, goalBoard: ending, heuristicFunction: Heuristics.manhattanDistanceHeuristic)
@@ -34,14 +34,10 @@ class BoardSimulationViewController: UIViewController {
         let board2: Board = [
             "_", "1", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "2"
         ]
-        let result = helperFunction(board1, ending: board2)
+        let result = helperFunction(starting: board1, ending: board2)
         print("GOT IT...")
         print("Result:  \(result) after: \(timer.stop()) seconds")
         print("")
-        
-    }
-    
-    @IBAction func moveStep(sender: AnyObject) {
     }
 }
 

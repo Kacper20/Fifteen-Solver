@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array {
-    func all(predicate: Element -> Bool) -> Bool {
+    func all(_ predicate: (Element) -> Bool) -> Bool {
         for elem in self where !predicate(elem) { return false }
         return true
     }
