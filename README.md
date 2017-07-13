@@ -2,8 +2,7 @@
 ### Kacper Harasim
 #### kacper.harasim@gmail.com
 
-Aplikacja służąca do symulacji gry "Piętnastka". Napisana jako projekt na przedmiot Analiza Algorytmów.
-Wizualizacja najlepszego rozwiązania  ukazana zostanie za pomocą GUI stworzonego z użyciem UIKit.
-Cała aplikacja została napisana w języku Swift. 
-
-
+Second year BSc studies project.
+Application simulates Fifteen-Puzzle solver. Internally to find the solution it's using A* algorithm with couple of different heuristics. 
+To visualise the solution there is simple UI created in UIKit.
+Whole app is converted to Swift 3.2

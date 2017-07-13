@@ -65,14 +65,14 @@ public class SolutionSearcher {
         //Startowy koszt to 0...
         rootBoardState = BoardNode(state: self.startingBoard, action: nil, parentNode: nil, cost: 0.0, heuristic: heuristicFunction(self.startingBoard, self.goalBoard))
     }
-    private func backTrack(node: BoardNode) -> [BlankSpaceMove] {
+    private func backTrack(from node: BoardNode) -> [BlankSpaceMove] {
         var tempNode = node //For better visibility
         var moves = [BlankSpaceMove]()
         while let node = tempNode.parentNode, let action = tempNode.generationAction {
             moves.append(action)
             tempNode = node
         }
-        return moves.reverse()
+        return moves.reversed()
     }
     
     func generateSolution() -> Solution? {
@@ -81,15 +81,15 @@ public class SolutionSearcher {
         var discoveredBoards: [Board : Bool] = [:]
         discoveredBoards[rootBoardState.state] = true
         while !frontierQueue.isEmpty {
-            nodesGenerated++
+            nodesGenerated += 1
             let currentNode = frontierQueue.pop()!
             let state = currentNode.state
             if state == goalBoard {
                 print("Searched \(nodesGenerated) nodes")
-                return Solution(startBoard: self.startingBoard, actions: backTrack(currentNode))
+                return Solution(startBoard: self.startingBoard, actions: backTrack(from: currentNode))
             }
             //Generujemy stany... Sprobowac napisac bardziej generycznie :)
-            for (child, move) in state.standardGeneratorFunction(currentNode.parentNode?.state) where discoveredBoards[child] == nil
+            for (child, move) in state.standardGeneratorFunction(parentBoard: currentNode.parentNode?.state) where discoveredBoards[child] == nil
                  {
                     discoveredBoards[child] = true
                 let newCost = currentNode.cost + 1.0
